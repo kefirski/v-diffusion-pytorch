@@ -146,7 +146,8 @@ def main():
         assert False
 
     def run_all(n, batch_size):
-        x = torch.randn([n, 3, side_y, side_x], device=device)
+        x = torch.randn([1, 3, side_y, side_x], device=device).repeat(n, 1, 1, 1)
+        x = 0.93 * x + 0.07 * torch.randn_like(x)
         t = torch.linspace(1, 0, args.steps + 1, device=device)[:-1]
         steps = utils.get_spliced_ddpm_cosine_schedule(t)
         if args.init:
